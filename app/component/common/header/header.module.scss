@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: absolute;
 
     z-index: 100;
     pointer-events: none;
@@ -35,4 +36,5 @@
         color: white;
     }
     transition: background-color 200ms ease;
+    border: none;
 }
