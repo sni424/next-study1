@@ -1,5 +1,5 @@
 import Header from './component/common/header/pages';
-import './globals.css';
+import './globals.scss';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
