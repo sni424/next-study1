@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import { Coordinates } from '@/types/store';
 import { NaverMap } from '@/types/map';
+import { INITIAL_CENTER, INITIAL_ZOOM } from '@/app/hooks/useMap';
 
 type Props = {
     mapId?: string;
@@ -12,12 +13,24 @@ type Props = {
     onLoad?: (map: NaverMap) => void;
 };
 
-export default function Map({ mapId = 'map', onLoad }: Props) {
+export default async function Map({
+    mapId = 'map',
+    initialCenter = INITIAL_CENTER,
+    initialZoom = INITIAL_ZOOM,
+    onLoad,
+}: Props) {
     const mapRef = useRef<NaverMap | null>(null);
 
     const initializeMap = () => {
         const mapOptions = {
-            // 맵 옵션 설정
+            center: new window.naver.maps.LatLng(...initialCenter),
+            zoom: initialZoom,
+            minZoom: 9,
+            scaleControl: false,
+            mapDataControl: false,
+            logoControlOptions: {
+                position: naver.maps.Position.BOTTOM_LEFT,
+            },
         };
 
         const map = new window.naver.maps.Map(mapId, mapOptions);

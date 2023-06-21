@@ -2,12 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import stlye from './header.module.scss';
 
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import { VscFeedback } from 'react-icons/vsc';
+import useMap from '@/app/hooks/useMap';
+import { useCallback } from 'react';
 
 interface Props {
     rightElements?: React.ReactElement[];
@@ -16,7 +18,16 @@ interface Props {
 export default function Header({ rightElements }: Props) {
     const pathname = usePathname();
 
-    console.log(pathname);
+    // const { resetMapOptions, getMapOptions } = useMap();
+    // const router = useRouter();
+
+    // const replaceAndCopyUrl = useCallback(() => {
+    //     const mapOptions = getMapOptions();
+    //     const query = `/?zoom=${mapOptions.zoom}&lat=${mapOptions.center[0]}&lng=${mapOptions.center[1]}`;
+
+    //     router.replace(query);
+    //     // copy(location.origin + query);
+    // }, [router, getMapOptions]);
 
     return (
         <header className={[stlye.header].join('')}>
@@ -37,9 +48,7 @@ export default function Header({ rightElements }: Props) {
             {pathname === '/' && (
                 <div className={[stlye.flexItem].join('')}>
                     <button
-                        onClick={() => {
-                            alert('복사');
-                        }}
+                        // onClick={replaceAndCopyUrl}
                         className={[stlye.box].join('')}
                     >
                         <AiOutlineShareAlt size={20} />
