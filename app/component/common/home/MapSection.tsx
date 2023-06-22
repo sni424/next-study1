@@ -6,10 +6,31 @@ import { NaverMap } from '@/types/map';
 
 import Markers from './Markers';
 import useStores from '@/app/hooks/useStores';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import useCurrentStore from '@/app/hooks/useCurrentStore';
+import { useParams, usePathname } from 'next/navigation';
+import { Coordinates } from '@/types/store';
+import { INITIAL_CENTER, INITIAL_ZOOM } from '@/app/hooks/useFocus';
+import { useSearchParams } from 'next/navigation';
 
 export default function MapSection() {
+    const param = useSearchParams();
+    console.log(param.toString());
+    const query = useMemo(() => new URLSearchParams(param.toString()), []);
+
+    const initialZoom = useMemo(
+        () => (query.get('zoom') ? Number(query.get('zoom')) : INITIAL_ZOOM),
+        [query]
+    );
+
+    const initialCenter = useMemo<Coordinates>(
+        () =>
+            query.get('lat') && query.get('lng')
+                ? [Number(query.get('lat')), Number(query.get('lng'))]
+                : INITIAL_CENTER,
+        [query]
+    );
+
     const { initializeMap } = useMap();
     const { clearCurrentStore } = useCurrentStore();
 
@@ -30,7 +51,11 @@ export default function MapSection() {
 
     return (
         <>
-            <Map onLoad={onLoadMap} />
+            <Map
+                onLoad={onLoadMap}
+                initialZoom={initialZoom}
+                initialCenter={initialCenter}
+            />
             <Markers />
         </>
     );
