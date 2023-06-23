@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { Coordinates } from '@/types/store';
 import { NaverMap } from '@/types/map';
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@/app/hooks/useFocus';
+import style from '../../../../styles/map.module.scss';
 
 type Props = {
     mapId?: string;
@@ -55,7 +56,11 @@ export default async function Map({
                 src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NCP_CLIENT_ID}`}
                 onReady={initializeMap}
             />
-            <div id={mapId} style={{ width: '100%', height: '100%' }} />
+            <div
+                id={mapId}
+                className={style.map}
+                style={{ width: '100%', height: '100%' }}
+            />
         </>
     );
 }
