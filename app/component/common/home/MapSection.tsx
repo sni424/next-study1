@@ -6,17 +6,16 @@ import { NaverMap } from '@/types/map';
 
 import Markers from './Markers';
 import useStores from '@/app/hooks/useStores';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import useCurrentStore from '@/app/hooks/useCurrentStore';
-import { useParams, usePathname } from 'next/navigation';
 import { Coordinates } from '@/types/store';
 import { INITIAL_CENTER, INITIAL_ZOOM } from '@/app/hooks/useFocus';
 import { useSearchParams } from 'next/navigation';
 
 export default function MapSection() {
     const param = useSearchParams();
-    console.log(param.toString());
-    const query = useMemo(() => new URLSearchParams(param.toString()), []);
+    const urlString = param.toString();
+    const query = useMemo(() => new URLSearchParams(urlString), [urlString]);
 
     const initialZoom = useMemo(
         () => (query.get('zoom') ? Number(query.get('zoom')) : INITIAL_ZOOM),

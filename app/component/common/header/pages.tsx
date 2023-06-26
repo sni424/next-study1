@@ -39,6 +39,7 @@ export default function Header({ rightElements }: Props) {
                     href="/"
                     className={[stlye.box].join('')}
                     onClick={resetMapOptions}
+                    aria-label="홈으로 이동"
                 >
                     <Image
                         src="/inflearn.png"
@@ -57,10 +58,15 @@ export default function Header({ rightElements }: Props) {
                     <button
                         onClick={replaceAndCopyUrl}
                         className={[stlye.box].join('')}
+                        aria-label="주소 공유버튼"
                     >
                         <AiOutlineShareAlt size={20} />
                     </button>
-                    <Link href="/feedback" className={[stlye.box].join('')}>
+                    <Link
+                        href="/feedback"
+                        className={[stlye.box].join('')}
+                        aria-label="피드백 페이지 이동"
+                    >
                         <VscFeedback size={20} />
                     </Link>
                 </div>
